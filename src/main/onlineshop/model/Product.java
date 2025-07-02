@@ -18,7 +18,7 @@ public class Product {
        private String name;
 
        @Column(nullable = false)
-       private int price;
+       private double price;
 
        private String imageUrl;
 
