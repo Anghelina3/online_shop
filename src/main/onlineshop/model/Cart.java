@@ -3,6 +3,7 @@ package onlineshop.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,9 +17,9 @@ public class Cart {
        @GeneratedValue(strategy = GenerationType.IDENTITY)
        private Long id;
 
-       @ManyToMany
+       @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
        @JoinColumn(name = "product_id")
-       private List<Product> products;
+       private List<Product> items = new ArrayList<>();
 
        @OneToOne
        @JoinColumn(name = "user_id")
