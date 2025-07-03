@@ -1,1 +1,23 @@
+package onlineshop.service;
 
+import onlineshop.model.Product;
+import onlineshop.repository.ProductRepository;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ProductServiceTempl extends ProductService{
+    private final ProductRepository productRepository;
+
+    @Override
+    Product saveProduct(Product product){
+            return productRepository.save(product);
+    }
+    @Override
+    Product updateProduct(Product product, Long productId){
+    }
+    @Override
+    void deleteProductId(Long productId){
+         Product productToDelete = productRepository.findById(productId).orElseThrow(() -> new ProductNotFound());
+         productRepository.delete(productToDelete);
+    }
+}
