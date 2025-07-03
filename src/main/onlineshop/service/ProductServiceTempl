@@ -8,14 +8,30 @@ import org.springframework.stereotype.Service;
 public class ProductServiceTempl extends ProductService{
     private final ProductRepository productRepository;
 
+    public ProductServiceTempl(ProductRepository productRepository){
+       this.productRepository = productRepository;
+    }
+    
     @Override
+    @Transactional
     Product saveProduct(Product product){
             return productRepository.save(product);
     }
     @Override
+    @Transactional
     Product updateProduct(Product product, Long productId){
+          Product existingProduct = productRepository.findById(productId).orElseThrow(() -> new ProductNotFound());
+          if(product.getPrice()!= 0.0){
+               existingProduct.setPrice(product.getPrice());
+          }
+          if(product.getImageUrl()!= null){
+             existingProduct.setImageUrl(product.getImageUrl());
+          }
+
+          return productRepository.save(existingProduct);
     }
     @Override
+    @Transactional
     void deleteProductId(Long productId){
          Product productToDelete = productRepository.findById(productId).orElseThrow(() -> new ProductNotFound());
          productRepository.delete(productToDelete);
