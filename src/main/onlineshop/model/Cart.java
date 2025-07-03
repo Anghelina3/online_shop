@@ -2,6 +2,7 @@ package onlineshop.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +19,14 @@ public class Cart {
        private Long id;
 
        @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-       @JoinColumn(name = "product_id")
-       private List<Product> items = new ArrayList<>();
+       @JoinColumn(name = "item_id")
+       private List<CartItem> items = new ArrayList<>();
 
        @OneToOne
        @JoinColumn(name = "user_id")
        private User user;
+
+       private String status;
+       private double totalPrice;
 
 }
