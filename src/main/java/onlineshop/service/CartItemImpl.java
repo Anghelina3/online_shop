@@ -1,5 +1,6 @@
 package onlineshop.service;
 
+import jakarta.transaction.Transactional;
 import onlineshop.exceptions.ItemNotFoundException;
 import onlineshop.model.CartItem;
 import onlineshop.repository.CartItemRepository;
@@ -13,11 +14,12 @@ public class CartItemImpl implements CartItemService{
        public CartItemImpl(CartItemRepository cartItemRepository){
 	      this.cartItemRepository = cartItemRepository;
        }
+       @Transactional
        @Override
        public CartItem saveCartItem(CartItem item) {
 	      return cartItemRepository.save(item);
        }
-
+       @Transactional
        @Override
        public CartItem updateCartItem(CartItem item, Long cartId) {
 	      CartItem cartItem = cartItemRepository.findById(cartId).orElseThrow(() -> new ItemNotFoundException(cartId));
@@ -30,7 +32,7 @@ public class CartItemImpl implements CartItemService{
 
 	      return cartItemRepository.save(cartItem);
        }
-
+       @Transactional
        @Override
        public void deleteCartItem(Long cartItemId) {
 	      cartItemRepository.deleteById(cartItemId);

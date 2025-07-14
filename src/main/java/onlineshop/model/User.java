@@ -14,7 +14,7 @@ public class User {
        private Long id;
 
        private String name;
-       private double amount;
+       private Double amount;
        private String image;
 
        @Column(unique = true, nullable = false)
@@ -24,7 +24,7 @@ public class User {
        private String password;
 
        @OneToOne(cascade = CascadeType.ALL)
-       @JoinColumn(name = "basket_id")
+       @JoinColumn(name = "cart_id")
        private Cart cart;
 
        @Transient

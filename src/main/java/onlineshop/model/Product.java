@@ -20,6 +20,6 @@ public class Product {
        @Column(nullable = false)
        private double price;
 
-       private String imageUrl;
+       private String image;
 
 }
